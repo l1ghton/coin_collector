@@ -3,7 +3,7 @@ using UnityEngine;
 public class obstackle : MonoBehaviour
 {
     private Vector3 ObstackleMoving = Vector3.left;
-    public bool IsFree {get;private set;} = true;
+    public bool IsFree {get;private set;} = false;
     public void Teleport(Vector3 position) 
     {
         transform.position = position;
@@ -17,10 +17,14 @@ public class obstackle : MonoBehaviour
 
     void move()
     {
-        transform.position += ObstackleMoving;
+        if (IsFree == false) 
+        {
+            transform.position += ObstackleMoving;
+        }
     }
-    private void OnTriggerEnter(Collider other)
+    void OnCollisionStay(Collision other)
     {
+        print("y");
         if (other.transform.tag == "Respawn") 
         {
             IsFree = true;
