@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class obstackle : MonoBehaviour
+public class city : MonoBehaviour
 {
     private Vector3 ObstackleMoving = Vector3.left;
     private float Speed = 75f;
-    public bool IsFree {get;private set;} = false;
-    public void Teleport(Vector3 position) 
+    public bool IsFree { get; private set; } = false;
+    public void Teleport(Vector3 position)
     {
         transform.position = position;
         IsFree = false;
@@ -18,7 +18,7 @@ public class obstackle : MonoBehaviour
 
     void move()
     {
-        if (IsFree == false) 
+        if (IsFree == false)
         {
             transform.position += ObstackleMoving * Time.deltaTime * Speed;
         }
@@ -26,7 +26,7 @@ public class obstackle : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         print("y");
-        if (other.CompareTag("Respawn")) 
+        if (other.CompareTag("RespawnCity"))
         {
             IsFree = true;
         }
@@ -37,3 +37,4 @@ public class obstackle : MonoBehaviour
         move();
     }
 }
+
