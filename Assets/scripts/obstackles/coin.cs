@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public class coin : MonoBehaviour
+public class coin : obstackle
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void move()
     {
-        
+        if (IsFree == false)
+        {
+            transform.position += ObstackleMoving * Time.deltaTime * Speed;
+        }
     }
-
-    // Update is called once per frame
-    void Update()
+    protected override void TriggerEvent(GameObject other)
     {
-        
+        if (other.CompareTag("RespawnCoin"))
+        {
+            IsFree = true;
+        }
     }
 }

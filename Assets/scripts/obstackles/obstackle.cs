@@ -1,11 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class obstackle : MonoBehaviour
 {
     protected float Speed = 75f;
-    public bool IsFree { get; protected set; } = false;
+    public bool IsFree { get; protected set; } = true;
 
     protected Vector3 ObstackleMoving = Vector3.left;
+
+    [SerializeField] protected List<Vector3> tf = new List<Vector3>();
     public void Teleport(Vector3 position)
     {
         transform.position = position;
