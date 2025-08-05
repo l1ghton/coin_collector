@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class controller : MonoBehaviour
@@ -14,6 +15,7 @@ public class controller : MonoBehaviour
     {
         ss.RightEvent += Right;
         ss.LeftEvent += Left;
+        SaveSystem.Instance.Load();
     }
 
     // Update is called once per frame
@@ -44,6 +46,15 @@ public class controller : MonoBehaviour
             transform.DOMoveZ(transform.position.z + MoveDistance, MoveDuration)
             .SetDelay(MoveDelay)
             .OnComplete(() => isMoving = false);
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.CompareTag("RespawnCoin")) 
+        {
+            GameData.Instance.money += 1;
+            other.transform.GetComponent<coin>().release();
+            SaveSystem.Instance.Save();
         }
     }
 }

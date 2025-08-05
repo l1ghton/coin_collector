@@ -16,4 +16,9 @@ public class coin : obstackle
             IsFree = true;
         }
     }
+    public void release() 
+    {
+        IsFree = true;
+        transform.position = new Vector3(-444.3f, 26.44848f,0);
+    }
 }
