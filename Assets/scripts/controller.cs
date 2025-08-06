@@ -52,7 +52,8 @@ public class controller : MonoBehaviour
     {
         if (other.transform.CompareTag("RespawnCoin")) 
         {
-            GameData.Instance.money += 1;
+            SaveSystem.Instance.gamedata.money += 1;
+            SaveSystem.Instance.gamedata.score += 1;
             other.transform.GetComponent<coin>().release();
             SaveSystem.Instance.Save();
         }

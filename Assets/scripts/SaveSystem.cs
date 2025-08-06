@@ -5,6 +5,7 @@ public class SaveSystem
     private string FileName = "Save.json";
     private string GlobalPath;
     private static SaveSystem instance;
+    public GameData gamedata = new GameData();
     public static SaveSystem Instance
     {
         get
@@ -24,17 +25,12 @@ public class SaveSystem
     }
     public void Save() 
     {
-        string  json = JsonUtility.ToJson(GameData.Instance);
+        string json = gamedata.save(GlobalPath);
+        Debug.Log(GlobalPath);
         File.WriteAllText(GlobalPath, json);
     }
     public void Load() 
     {
-        if (File.Exists(GlobalPath)) 
-        {
-            Debug.Log(GlobalPath);
-            string json = File.ReadAllText(GlobalPath);
-            GameData gamedata = JsonUtility.FromJson<GameData>(json);
-            GameData.Instance.money = gamedata.money;
-        }
+        gamedata.load(GlobalPath);
     }
 }
