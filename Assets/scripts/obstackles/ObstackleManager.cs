@@ -9,8 +9,9 @@ public class ObstackleManager : MonoBehaviour
     [SerializeField] private road[] BuildingsRoad = new road[10];
     [SerializeField] private road[] BoxesRoad = new road[10];
     [SerializeField] private road[] CoinsRoad = new road[10];
+    private int generation;
 
-    void PlaceObjects(obstackle[] obstackles, road[] triggers)
+    void PlaceObjects(obstackle[] obstackles, road[] triggers, int count = int.MaxValue)
     {
         obstackle[] ObjectsBuffer = new obstackle[obstackles.Length];
         int BufferSize = 0;
@@ -30,6 +31,8 @@ public class ObstackleManager : MonoBehaviour
             }
             if (ob.IsFree)
             {
+                if (!(count - 1 >= 0)) {return;}
+                count--;
                 print(BufferSize);
                 ObjectsBuffer[BufferSize - 1].Teleport(ob.transform.position);
                 BufferSize--;
@@ -39,11 +42,15 @@ public class ObstackleManager : MonoBehaviour
 
     IEnumerator enumerator() 
     {
-        PlaceObjects(buildings, BuildingsRoad);
-        PlaceObjects(coins, CoinsRoad);
-        //PlaceObjects(boxes, BoxesRoad);
+        while (true)
+        {
+            generation = Random.Range(1, 3);
+            PlaceObjects(buildings, BuildingsRoad);
+            PlaceObjects(coins, CoinsRoad,1);
+            PlaceObjects(boxes, BoxesRoad,2);
 
-        yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(5);
+        }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
