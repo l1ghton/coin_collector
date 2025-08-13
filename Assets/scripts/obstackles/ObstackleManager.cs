@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class ObstackleManager : MonoBehaviour
@@ -23,8 +24,9 @@ public class ObstackleManager : MonoBehaviour
                 BufferSize++;
             }
         }
-        foreach (var ob in triggers)
+        for (int i = 0;i < triggers.Length; i++)
         {
+            var ob = triggers[i];
             if (BufferSize == 0)
             {
                 break;
@@ -33,8 +35,8 @@ public class ObstackleManager : MonoBehaviour
             {
                 if (!(count - 1 >= 0)) {return;}
                 count--;
-                print(BufferSize);
-                ObjectsBuffer[BufferSize - 1].Teleport(ob.transform.position);
+                ob.IsFree = false;
+                ObjectsBuffer[BufferSize - 1].Teleport(ob.transform.position, i);
                 BufferSize--;
             }
         }
@@ -45,11 +47,18 @@ public class ObstackleManager : MonoBehaviour
         while (true)
         {
             generation = Random.Range(1, 3);
-            PlaceObjects(buildings, BuildingsRoad);
-            PlaceObjects(coins, CoinsRoad,1);
-            PlaceObjects(boxes, BoxesRoad,2);
+            if (Random.Range(0, 2) == 0) 
+            {
+                PlaceObjects(coins, CoinsRoad, generation);
+                PlaceObjects(boxes, BoxesRoad, generation);
+            }
+            else 
+            {
+                PlaceObjects(boxes, BoxesRoad, generation);
+                PlaceObjects(coins, CoinsRoad, generation);
+            }
 
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(2);
         }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -61,6 +70,6 @@ public class ObstackleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        PlaceObjects(buildings, BuildingsRoad);
     }
 }

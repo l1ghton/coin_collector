@@ -8,10 +8,10 @@ public abstract class obstackle : MonoBehaviour
 
     protected Vector3 ObstackleMoving = Vector3.left;
 
-    [SerializeField] protected List<Vector3> tf = new List<Vector3>();
-    public void Teleport(Vector3 position)
+    [SerializeField] protected Vector3 offset;
+    public virtual void Teleport(Vector3 position, int RoadIndex)
     {
-        transform.position = position;
+        transform.position = position + offset;
         IsFree = false;
     }
     protected abstract void move();

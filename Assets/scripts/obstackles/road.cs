@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class road : MonoBehaviour
 {
-    public bool IsFree { get; protected set; } = true;
+    public bool IsFree = true;
     private int Count;
     private void OnTriggerEnter(Collider other)
     {
