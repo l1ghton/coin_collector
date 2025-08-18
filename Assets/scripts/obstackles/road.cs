@@ -7,21 +7,15 @@ public class road : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Count++;
+        IsFree = false;
     }
     private void OnTriggerExit(Collider other)
     {
         Count--;
-    }
-    void FixedUpdate()
-    {
-        if (Count == 0) 
+
+        if (Count == 0)
         {
             IsFree = true;
         }
-        else
-        {
-            IsFree = false;
-        }
-
     }
 }
