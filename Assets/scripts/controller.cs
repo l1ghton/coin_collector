@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class controller : MonoBehaviour
     [SerializeField] private float MoveDistance = 2f;
     [SerializeField] private float MoveDuration = 0.5f;
     [SerializeField] private float MoveDelay = 0.3f;
+    [SerializeField] private AudioManager audio;
     private bool isMoving = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -16,6 +18,7 @@ public class controller : MonoBehaviour
         ss.RightEvent += Right;
         ss.LeftEvent += Left;
         SaveSystem.Instance.Load();
+        StartCoroutine(ScoreIncrenment());
     }
 
     // Update is called once per frame
@@ -56,6 +59,19 @@ public class controller : MonoBehaviour
             SaveSystem.Instance.gamedata.score += 1;
             other.transform.GetComponent<coin>().release();
             SaveSystem.Instance.Save();
+            audio.coin();
+        }
+        if (other.transform.CompareTag("Boxes")) 
+        {
+            audio.boxes();
+        }
+    }
+    IEnumerator ScoreIncrenment() 
+    {
+        while (true)
+        {
+            SaveSystem.Instance.gamedata.score++;
+            yield return new WaitForSeconds(1);
         }
     }
 }

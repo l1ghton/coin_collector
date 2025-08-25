@@ -24,6 +24,13 @@ public class ObstackleManager : MonoBehaviour
                 BufferSize++;
             }
         }
+        for (int i = BufferSize - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            var temp = ObjectsBuffer[i];
+            ObjectsBuffer[i] = ObjectsBuffer[j];
+            ObjectsBuffer[j] = temp;
+        }
         for (int i = 0;i < triggers.Length; i++)
         {
             var ob = triggers[i];

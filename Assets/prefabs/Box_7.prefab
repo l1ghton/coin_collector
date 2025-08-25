@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 629982275742498155}
   m_Layer: 0
   m_Name: Box_7
-  m_TagString: Untagged
+  m_TagString: Boxes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,3 +121,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99b9f2d6b681b54c9d1db4c5ccf5a71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
