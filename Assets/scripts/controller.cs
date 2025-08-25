@@ -24,7 +24,7 @@ public class controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        SaveSystem.Instance.gamesettings.ChangeDifficult();
     }
     void Right() 
 

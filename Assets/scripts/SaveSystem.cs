@@ -6,6 +6,7 @@ public class SaveSystem
     private string GlobalPath;
     private static SaveSystem instance;
     public GameData gamedata = new GameData();
+    public GameSettings gamesettings = new GameSettings();
     public static SaveSystem Instance
     {
         get

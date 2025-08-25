@@ -24,7 +24,7 @@ public class coin : obstackle
     {
         if (IsFree == false)
         {
-            transform.position += ObstackleMoving * Time.deltaTime * Speed;
+            transform.position += ObstackleMoving * Time.deltaTime * Speed * SaveSystem.Instance.gamesettings.Difficult;
         }
     }
     protected override void TriggerEvent(GameObject other)

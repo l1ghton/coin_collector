@@ -6,7 +6,7 @@ public class city : obstackle
     {
         if (IsFree == false)
         {
-            transform.position += ObstackleMoving * Time.deltaTime * Speed;
+            transform.position += ObstackleMoving * Time.deltaTime * Speed * SaveSystem.Instance.gamesettings.Difficult;
         }
     }
     public override void Teleport(Vector3 position, int RoadIndex)
