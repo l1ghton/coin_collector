@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class obstackle : MonoBehaviour
 {
     protected float Speed = 75f;
-    public bool IsFree { get; protected set; } = true;
+    public bool IsFree = true;
 
     protected Vector3 ObstackleMoving = Vector3.left;
 

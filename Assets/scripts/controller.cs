@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Linq;
 
 public class controller : MonoBehaviour
 {
@@ -12,10 +13,20 @@ public class controller : MonoBehaviour
     [SerializeField] private float MoveDelay = 0.3f;
     [SerializeField] private AudioManager audio;
     private bool isMoving = false;
+    [SerializeField] private Material Material;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        ss.RightEvent += Right;
+        var skin = SaveSystem.Instance.gamedata.skins.FirstOrDefault(x => x.Value.status == SkinStatus.Selected).Key;
+        if (skin == null || skin == "") 
+        {
+            Material.color = Color.white;
+        }
+        else
+        {
+            Material.color = SaveSystem.Instance.gamedata.skins[skin].color;
+        }
+            ss.RightEvent += Right;
         ss.LeftEvent += Left;
         SaveSystem.Instance.Load();
         StartCoroutine(ScoreIncrenment());

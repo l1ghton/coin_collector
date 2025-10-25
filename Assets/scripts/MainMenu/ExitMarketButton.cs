@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MarketButton : Buttons
+public class ExitMarketButton : Buttons
 {
     protected override void ClickEvent()
     {
-        SceneManager.LoadScene("shop");
+        SceneManager.LoadScene("main menu");
     }
 }

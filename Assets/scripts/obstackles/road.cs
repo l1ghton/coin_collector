@@ -3,9 +3,10 @@ using UnityEngine;
 public class road : MonoBehaviour
 {
     public bool IsFree = true;
-    private int Count;
+    public int Count;
     private void OnTriggerEnter(Collider other)
     {
+        print(transform.name + " " + other.name);
         Count++;
         IsFree = false;
     }
@@ -13,6 +14,9 @@ public class road : MonoBehaviour
     {
         Count--;
 
+    }
+    private void FixedUpdate()
+    {
         if (Count == 0)
         {
             IsFree = true;

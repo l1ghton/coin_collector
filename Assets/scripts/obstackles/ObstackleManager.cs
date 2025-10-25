@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class ObstackleManager : MonoBehaviour
 {
-    [SerializeField] private obstackle[] buildings = new obstackle[10];
-    [SerializeField] private obstackle[] coins = new obstackle[10];
-    [SerializeField] private obstackle[] boxes = new obstackle[10];
+    [SerializeField] private GameObject coin;
+    [SerializeField] private GameObject box;
+    [SerializeField] private GameObject building;
+    private obstackle[] buildings = new obstackle[10];
+    private obstackle[] coins = new obstackle[10];
+    private obstackle[] boxes = new obstackle[10];
     [SerializeField] private road[] BuildingsRoad = new road[10];
     [SerializeField] private road[] BoxesRoad = new road[10];
     [SerializeField] private road[] CoinsRoad = new road[10];
@@ -71,6 +74,21 @@ public class ObstackleManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        boxes = new obstackle[box.transform.childCount];
+        for (int i = 0; i < boxes.Length; i++) 
+        {
+            boxes[i] = box.transform.GetChild(i).GetComponent<obstackle>();
+        }
+        coins = new obstackle[coin.transform.childCount];
+        for (int i = 0;i < coins.Length; i++) 
+        {
+            coins[i] = coin.transform.GetChild(i).GetComponent<obstackle>();
+        }
+        buildings = new obstackle[building.transform.childCount];
+        for (int i = 0; i < buildings.Length; i++)
+        {
+            buildings[i] = building.transform.GetChild(i).GetComponent<obstackle>();
+        }
         StartCoroutine(enumerator());
     }
 
