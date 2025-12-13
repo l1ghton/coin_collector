@@ -19,7 +19,10 @@ public abstract class obstackle : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
-        move();
+        if (PauseData.Pause == false)
+        {
+            move();
+        }
     }
     protected abstract void TriggerEvent(GameObject other);
     void OnTriggerEnter(Collider other)

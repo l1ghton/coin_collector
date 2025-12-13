@@ -9,7 +9,7 @@ public abstract class Buttons : MonoBehaviour, IPointerDownHandler , IPointerUpH
     [SerializeField] private float duration = 0.2f;
     [SerializeField] private float ScaleFactor = 0.7f;
     private Vector3 OriginalScale;
-    private Tween tween;
+    protected Tween tween;
     [SerializeField] private Ease UpEase;
     [SerializeField] private Ease DownEase;
     public void OnPointerUp(PointerEventData eventData) 

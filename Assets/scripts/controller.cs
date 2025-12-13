@@ -14,6 +14,7 @@ public class controller : MonoBehaviour
     [SerializeField] private AudioManager audio;
     private bool isMoving = false;
     [SerializeField] private Material Material;
+    [SerializeField] private Tween anim;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,6 +31,8 @@ public class controller : MonoBehaviour
         ss.LeftEvent += Left;
         SaveSystem.Instance.Load();
         StartCoroutine(ScoreIncrenment());
+        PauseData.PauseDisabled += PauseDisabled;
+        PauseData.PauseEnabled += PauseEnabled;
     }
 
     // Update is called once per frame
@@ -41,25 +44,43 @@ public class controller : MonoBehaviour
 
     {
         bool CanMove = ActiveRoad + 1 <= 2 && !isMoving;
-        if (CanMove) 
+        if (CanMove && PauseData.Pause == false) 
         {
             ActiveRoad += 1;
             isMoving = true;
-            transform.DOMoveZ(transform.position.z - MoveDistance, MoveDuration)
+            anim = transform.DOMoveZ(transform.position.z - MoveDistance, MoveDuration)
             .SetDelay(MoveDelay)
             .OnComplete(() => isMoving = false);
+        }
+        if (PauseData.Pause == true && anim != null && anim.IsPlaying()) 
+        {
+            anim.Pause();
         }
     }
     void Left() 
     {
         bool canMove = ActiveRoad - 1 >= 0 && !isMoving;
-        if (canMove)
+        if (canMove && PauseData.Pause == false)
         {
             ActiveRoad -= 1;
             isMoving = true;
-            transform.DOMoveZ(transform.position.z + MoveDistance, MoveDuration)
+            anim = transform.DOMoveZ(transform.position.z + MoveDistance, MoveDuration)
             .SetDelay(MoveDelay)
             .OnComplete(() => isMoving = false);
+        }
+    }
+    public void PauseDisabled() 
+    {
+        if (anim != null && anim.IsActive()) 
+        {
+            anim.Play();
+        }
+    }
+    public void PauseEnabled() 
+    {
+        if (anim != null && anim.IsActive() && anim.IsPlaying())
+        {
+            anim.Pause();
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -84,5 +105,9 @@ public class controller : MonoBehaviour
             SaveSystem.Instance.gamedata.score++;
             yield return new WaitForSeconds(1);
         }
+    }
+    private void OnDestroy()
+    {
+        anim?.Kill();
     }
 }

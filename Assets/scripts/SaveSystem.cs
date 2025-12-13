@@ -2,6 +2,8 @@ using UnityEngine;
 using System.IO;
 public class SaveSystem
 {
+    private string GlobalPath2;
+    private string FileName2 = "SettingsSave.json";
     private string FileName = "Save.json";
     private string GlobalPath;
     private static SaveSystem instance;
@@ -22,6 +24,7 @@ public class SaveSystem
     SaveSystem()
     {
         GlobalPath = Application.persistentDataPath + "/" + FileName;
+        GlobalPath2 = Application.persistentDataPath + "/" + FileName2;
         Load();
     }
     public void Save() 
@@ -29,9 +32,12 @@ public class SaveSystem
         string json = gamedata.save(GlobalPath);
         Debug.Log(GlobalPath);
         File.WriteAllText(GlobalPath, json);
+        string jsonn = gamesettings.save(GlobalPath);
+        File.WriteAllText(GlobalPath2, jsonn);
     }
     public void Load() 
     {
         gamedata.load(GlobalPath);
+        gamesettings.load(GlobalPath2);
     }
 }
